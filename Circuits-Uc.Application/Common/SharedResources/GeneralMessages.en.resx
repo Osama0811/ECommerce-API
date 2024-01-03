@@ -117,16 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddedSuccessfully" xml:space="preserve">
+    <value>Added Successfully</value>
+  </data>
+  <data name="ChangePasswordSuccessfully" xml:space="preserve">
+    <value>Change Password Successfully</value>
+  </data>
+  <data name="CheckAlterPhone" xml:space="preserve">
+    <value>AlterPhone Exist</value>
+  </data>
+  <data name="CheckEmail" xml:space="preserve">
+    <value>Email Exist</value>
+  </data>
+  <data name="CheckPhone" xml:space="preserve">
+    <value>Phone Exist</value>
+  </data>
+  <data name="DeletedSuccesfully" xml:space="preserve">
+    <value>Deleted Succesfully</value>
+  </data>
+  <data name="EmailAlterPhone" xml:space="preserve">
+    <value>Email AlterPhone  exist Before</value>
+  </data>
+  <data name="EmailPhone" xml:space="preserve">
+    <value>Email Phone  exist Before</value>
+  </data>
+  <data name="EmailPhoneAlterPhone" xml:space="preserve">
+    <value>Email Phone Alternative Phone exist Before</value>
+  </data>
+  <data name="ErrorInChangePassword" xml:space="preserve">
+    <value>ErrorIn Change Password</value>
+  </data>
+  <data name="ErrorInDelete" xml:space="preserve">
+    <value>Error In Delete</value>
+  </data>
+  <data name="ErrorInEdit" xml:space="preserve">
+    <value>Error In Edit</value>
+  </data>
+  <data name="ErrorInSave" xml:space="preserve">
+    <value>Error In Save</value>
+  </data>
+  <data name="ErrorInUpdated" xml:space="preserve">
+    <value>Error In Updated</value>
+  </data>
   <data name="LoginSuccessfully" xml:space="preserve">
     <value>Login Successfully</value>
   </data>
-  <data name="TheValueIS" xml:space="preserve">
-    <value>The Value Is</value>
+  <data name="PassIsNotCorrect" xml:space="preserve">
+    <value>Pass Is Not Correct</value>
+  </data>
+  <data name="PhoneAlterPhone" xml:space="preserve">
+    <value>Phone AlterPhone  exist Before</value>
+  </data>
+  <data name="Succes" xml:space="preserve">
+    <value>Succes</value>
+  </data>
+  <data name="updatedSuccessfully" xml:space="preserve">
+    <value>updated Successfully</value>
   </data>
   <data name="UserNotFound" xml:space="preserve">
     <value>User Not Found</value>
-  </data>
-  <data name="welcome" xml:space="preserve">
-    <value>trdthftg</value>
   </data>
 </root>

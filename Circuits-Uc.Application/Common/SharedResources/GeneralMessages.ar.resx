@@ -117,16 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ChangePasswordSuccessfully" xml:space="preserve">
+    <value>تم تغير الباسورد بنجاح</value>
+  </data>
+  <data name="EmailPhoneAlterPhone" xml:space="preserve">
+    <value>كل من الايميل والهاتف الرئيسي والبديل موجود مسبقا</value>
+  </data>
+  <data name="ErrorInChangePassword" xml:space="preserve">
+    <value>خطا اثناء تغير كلمة الباسورد</value>
+  </data>
   <data name="LoginSuccessfully" xml:space="preserve">
     <value>تمت تسجيل الدخول بنجاح</value>
   </data>
-  <data name="TheValueIS" xml:space="preserve">
-    <value>القيمه تكون</value>
+  <data name="PassIsNotCorrect" xml:space="preserve">
+    <value>كلمة المرور غير صحيحه</value>
+  </data>
+  <data name="Succes" xml:space="preserve">
+    <value>تمت بنجاح</value>
   </data>
   <data name="UserNotFound" xml:space="preserve">
     <value>اليوزر غير موجود</value>
-  </data>
-  <data name="welcome" xml:space="preserve">
-    <value>منتم</value>
   </data>
 </root>

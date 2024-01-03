@@ -52,7 +52,7 @@ namespace CircuitsUc.Application.Services
             if (User == null)
             {
                
-                    return new GeneralResponse<AuthResponse>(_localization["UserNotFound"], System.Net.HttpStatusCode.BadRequest);
+                    return new GeneralResponse<AuthResponse>(_localization["UserNotFound"].Value, System.Net.HttpStatusCode.BadRequest);
             }
             User.LastLoginDate = DateTime.Now;
             User.IsOnline = true;
@@ -101,7 +101,7 @@ namespace CircuitsUc.Application.Services
             var oldpassword = WebUiUtility.Encrypt(request.CurrentPassword);
             if (oldpassword != SecurityUser.Password)
             {
-                return new GeneralResponse<ChangeUserPasswordResponse>(_localization["PassIsNotCorrect"], System.Net.HttpStatusCode.BadRequest);
+                return new GeneralResponse<ChangeUserPasswordResponse>(_localization["PassIsNotCorrect"].Value, System.Net.HttpStatusCode.BadRequest);
             }
             SecurityUser.Password = WebUiUtility.Encrypt(request.NewPassword);
 
@@ -116,8 +116,8 @@ namespace CircuitsUc.Application.Services
 
             };
             return results >= 1 ?
-           new GeneralResponse<ChangeUserPasswordResponse>(response, _localization["ChangePasswordSuccessfully"], 0)
-           : new GeneralResponse<ChangeUserPasswordResponse>(_localization["ErrorInChangePassword"], System.Net.HttpStatusCode.BadRequest);
+           new GeneralResponse<ChangeUserPasswordResponse>(response, _localization["ChangePasswordSuccessfully"].Value, 0)
+           : new GeneralResponse<ChangeUserPasswordResponse>(_localization["ErrorInChangePassword"].Value, System.Net.HttpStatusCode.BadRequest);
 
         }
 

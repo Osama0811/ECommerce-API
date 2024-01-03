@@ -25,7 +25,7 @@ namespace CircuitsUc.Domain.Entities
         public string? AlternativePhone { get; set; }
 
         public Nullable<int> PreferedContact { get; set; }
-        public Nullable<long> Code { get; set; }
+        //public Nullable<long> Code { get; set; }
         public bool IsActive { get; set; } = true;
 
         public bool IsOnline { get; set; }

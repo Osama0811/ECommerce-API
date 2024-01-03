@@ -14,6 +14,7 @@ using Microsoft.Extensions.Localization;
 using CircuitsUc.Application.Helpers;
 using static CircuitsUc.Application.Helpers.CommenEnum;
 using CircuitsUc.Application.DTOS.SecurityUserDTO;
+using Newtonsoft.Json.Linq;
 
 
 namespace CircuitsUc.Application.Services
@@ -47,7 +48,6 @@ namespace CircuitsUc.Application.Services
                     Email = x.Email,
                     PreferedContact = x.PreferedContact,
                     RoleId = x.RoleId,
-                    Code = x.Code,
                     IsActive = x.IsActive,
                     IsOnline = x.IsOnline,
                     LastLoginDate = x.LastLoginDate,
@@ -60,7 +60,7 @@ namespace CircuitsUc.Application.Services
 
                 }).FirstOrDefault();
 
-            return new GeneralResponse<SecurityUserDto>(results, _localization["Succes"]);
+            return new GeneralResponse<SecurityUserDto>(results, _localization["Succes"].Value);
         }
         public async Task<GeneralResponse<List<SecurityUserDto>>> GetAll()
         {
@@ -75,7 +75,6 @@ namespace CircuitsUc.Application.Services
                      Email = x.Email,
                      PreferedContact =x.PreferedContact,
                      RoleId=x.RoleId,
-                     Code=x.Code,
                      IsActive=x.IsActive,
                      IsOnline=x.IsOnline,
                      LastLoginDate=x.LastLoginDate,
@@ -105,7 +104,7 @@ namespace CircuitsUc.Application.Services
                 #region CheckEmail&Phone&AlterPhone
                 if (!CheckUser(SecurityUser,out string message))
                 {
-                    return new GeneralResponse<Guid>(_localization[message], System.Net.HttpStatusCode.BadRequest);
+                    return new GeneralResponse<Guid>(_localization[message].Value, System.Net.HttpStatusCode.BadRequest);
                 }
                 #endregion
                 SecurityUser.IsOnline = true;
@@ -127,7 +126,7 @@ namespace CircuitsUc.Application.Services
                     if (!Succes)
                     {
 
-                        return new GeneralResponse<Guid>(_localization["ErrorInSave"], System.Net.HttpStatusCode.BadRequest);
+                        return new GeneralResponse<Guid>(_localization["ErrorInSave"].Value, System.Net.HttpStatusCode.BadRequest);
 
                     }
                     #endregion
@@ -144,8 +143,8 @@ namespace CircuitsUc.Application.Services
                 #endregion
                 //var results =Succes? 1: 0;
            
-                return Succes ? new GeneralResponse<Guid>(SecurityUser.Id, _localization["AddedSuccessfully"]) :
-                     new GeneralResponse<Guid>(_localization["ErrorInSave"], System.Net.HttpStatusCode.BadRequest);
+                return Succes ? new GeneralResponse<Guid>(SecurityUser.Id, _localization["AddedSuccessfully"].Value) :
+                     new GeneralResponse<Guid>(_localization["ErrorInSave"].Value, System.Net.HttpStatusCode.BadRequest);
 
             }
             catch (Exception ex)
@@ -166,7 +165,7 @@ namespace CircuitsUc.Application.Services
             #region CheckEmail&Phone&AlterPhone
             if (!CheckUser(securityUser, out string message))
             {
-                return new GeneralResponse<Guid>(_localization[message], System.Net.HttpStatusCode.BadRequest);
+                return new GeneralResponse<Guid>(_localization[message].Value, System.Net.HttpStatusCode.BadRequest);
             }
 
 
@@ -200,7 +199,7 @@ namespace CircuitsUc.Application.Services
                 if (!await _documentService.Add(doc))
                 {
 
-                    return new GeneralResponse<Guid>(_localization["ErrorInUpdated"], System.Net.HttpStatusCode.BadRequest);
+                    return new GeneralResponse<Guid>(_localization["ErrorInUpdated"].Value, System.Net.HttpStatusCode.BadRequest);
 
                 }
                 
@@ -220,8 +219,8 @@ namespace CircuitsUc.Application.Services
             await _unit.SecurityUser.UpdateAsync(securityUser);
             var results = await _unit.SaveAsync();
          
-            return results >= 1 ? new GeneralResponse<Guid>(securityUser.Id, _localization["updatedSuccessfully"]) :
-                new GeneralResponse<Guid>(_localization["ErrorInEdit"], System.Net.HttpStatusCode.BadRequest);
+            return results >= 1 ? new GeneralResponse<Guid>(securityUser.Id, _localization["updatedSuccessfully"].Value) :
+                new GeneralResponse<Guid>(_localization["ErrorInEdit"].Value, System.Net.HttpStatusCode.BadRequest);
         }
         public async Task<GeneralResponse<List<Guid>>>SoftRangeDelete(List<Guid> Id)
         {
@@ -230,8 +229,8 @@ namespace CircuitsUc.Application.Services
 
             var results = _unit.Save();
 
-            return results >= 1 ? new GeneralResponse <List<Guid>>(Id,_localization["DeletedSuccesfully"]) :
-                 new GeneralResponse<List<Guid>>(_localization["ErrorInDelete"], System.Net.HttpStatusCode.BadRequest);
+            return results >= 1 ? new GeneralResponse <List<Guid>>(Id,_localization["DeletedSuccesfully"].Value) :
+                 new GeneralResponse<List<Guid>>(_localization["ErrorInDelete"].Value, System.Net.HttpStatusCode.BadRequest);
         }
         public async Task<GeneralResponse<Guid>> SoftDelete(Guid Id)
         {
@@ -239,8 +238,8 @@ namespace CircuitsUc.Application.Services
             await _unit.SecurityUser.SoftDelete(Id);
             var results = await _unit.SaveAsync();
          
-            return results >= 1 ? new GeneralResponse<Guid>(Id, _localization["DeletedSuccesfully"]) :
-                new GeneralResponse<Guid>(_localization["ErrorInDelete"], System.Net.HttpStatusCode.BadRequest);
+            return results >= 1 ? new GeneralResponse<Guid>(Id, _localization["DeletedSuccesfully"].Value) :
+                new GeneralResponse<Guid>(_localization["ErrorInDelete"].Value, System.Net.HttpStatusCode.BadRequest);
        
         }
         public bool checkEmailExist(string Email,Guid? id)
