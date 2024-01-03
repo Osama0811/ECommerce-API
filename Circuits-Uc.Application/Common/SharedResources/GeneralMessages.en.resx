@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
   <data name="AddedSuccessfully" xml:space="preserve">
     <value>Added Successfully</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>Blogs</value>
   </data>
   <data name="ChangePasswordSuccessfully" xml:space="preserve">
     <value>Change Password Successfully</value>
@@ -162,6 +168,9 @@
   <data name="LoginSuccessfully" xml:space="preserve">
     <value>Login Successfully</value>
   </data>
+  <data name="Partners" xml:space="preserve">
+    <value>Partners</value>
+  </data>
   <data name="PassIsNotCorrect" xml:space="preserve">
     <value>Pass Is Not Correct</value>
   </data>
@@ -173,6 +182,9 @@
   </data>
   <data name="ProductExistBefore" xml:space="preserve">
     <value>Product Exist Before</value>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>Services</value>
   </data>
   <data name="Succes" xml:space="preserve">
     <value>Succes</value>

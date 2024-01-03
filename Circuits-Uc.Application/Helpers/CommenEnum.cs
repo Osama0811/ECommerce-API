@@ -1,4 +1,7 @@
 ﻿
+using CircuitsUc.Application.Common.SharedResources;
+using System.ComponentModel.DataAnnotations;
+
 namespace CircuitsUc.Application.Helpers
 {
    
@@ -17,9 +20,30 @@ namespace CircuitsUc.Application.Helpers
             Customer = 2,
             ProductCategory=3,
             ProductImage=4,
-            ProductFile=5
-        } 
-     
+            ProductFile=5,
+            SystemParameter=6,
+        }
+        public enum PageType
+        {
+            [Display(Description = "Services", ResourceType = typeof(GeneralMessages))]
+            Services = 1,
+            [Display(Description = "Blogs", ResourceType = typeof(GeneralMessages))]
+            Blogs = 2,
+            [Display(Description = "Partners", ResourceType = typeof(GeneralMessages))]
 
+            Partners = 3  ,
+            [Display(Description = "About", ResourceType = typeof(GeneralMessages))]
+
+            About = 4
+
+        }
+        public enum SystemParameterKey
+        {
+            InviteApp,
+            ContactInfo,
+            AboutApp,
+            WebSiteUrl,
+            ContactEmailConfiguration
+        };
     }
 }

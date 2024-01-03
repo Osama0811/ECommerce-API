@@ -2,6 +2,8 @@
 using CircuitsUc.Application.DTOS.ProductCategoryDTO;
 using CircuitsUc.Application.DTOS.ProductDTO;
 using CircuitsUc.Application.IService;
+using CircuitsUc.Application.IServices;
+using CircuitsUc.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,10 +16,12 @@ namespace CircuitsUc.Api.Controllers
 
         private readonly IProductCategoryService _ProductCategoryService;
         private readonly IProductService _ProductService;
-        public WebApiController(IProductCategoryService productCategoryService, IProductService productService) 
+        private readonly ISystemParameterServices _SystemParameter;
+        public WebApiController(IProductCategoryService productCategoryService, IProductService productService, ISystemParameterServices SystemParameter) 
         {
             _ProductCategoryService = productCategoryService;
             _ProductService = productService;
+            _SystemParameter = SystemParameter;
         }
         #region ProductCategory
 
@@ -37,6 +41,8 @@ namespace CircuitsUc.Api.Controllers
             bool isEnglish = Request.Headers["Accept-Language"].ToString().ToLower().Contains("en");
             return await _ProductService.GetAll(CategoryID, null, isEnglish);
         }
+        #endregion
+        #region SystemParameter
         #endregion
     }
 }
