@@ -14,6 +14,7 @@ namespace CircuitsUc.Domain.IRepositories
         IRepository<SecurityUser> SecurityUser { get; }
         IRepository<Document> Document { get; }
         IRepository<ProductCategory> ProductCategory { get; }
+        IRepository<Product> Product { get; }
       
 
 

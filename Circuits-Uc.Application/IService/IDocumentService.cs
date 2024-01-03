@@ -29,7 +29,7 @@ namespace CircuitsUc.Application.IServices
         string GetMainImagePath(Guid ID, string enumValue);
         void RemoveImage(Guid RefEntityID, Guid id, string FileName, string enumValue);
 
-
+        Task<bool> PostImageAction(Guid Id, string EnumVal, string ImageBase64, string ImageName, bool IsMain);
 
         void AddFileBase64(Guid RefEntityID, Guid docCode, string enumVal, string FileName, string base64String);
 

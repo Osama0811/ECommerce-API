@@ -24,4 +24,8 @@
     <ProjectReference Include="..\Circuits-Uc.InfraStructure\CircuitsUc.InfraStructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Attachments\" />
+  </ItemGroup>
+
 </Project>

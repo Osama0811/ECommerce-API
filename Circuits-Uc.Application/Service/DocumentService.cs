@@ -22,7 +22,7 @@ namespace CircuitsUc.Application.Services
     {
         private readonly IUnitOfWork _unit;
 
-        const string WebSite = "http://www.CircuitsUc.somee.com";
+        const string WebSite = "";
         public DocumentService(IUnitOfWork unit) {
             _unit = unit;
           
@@ -78,7 +78,7 @@ namespace CircuitsUc.Application.Services
 
         public string  GetImagePath(Guid RefEntityID, Guid docCode, string enumValue, string FileName)
         {
-            var WebSite = "http://www.CircuitsUc.somee.com";
+            var WebSite = "";
             var webSiteUrl = WebSite == null ? null :WebSite;
             var ImagePath = DocumentController.GetImage(RefEntityID, docCode, enumValue, FileName);
             ImagePath = WebSite == null ? ImagePath :
@@ -115,6 +115,44 @@ namespace CircuitsUc.Application.Services
             }
         }
 
+        public async Task<bool> PostImageAction(Guid Id, string EnumVal, string ImageBase64, string ImageName,bool IsMain)
+        {
+            #region Update IMG
+           
+                #region Saving  Image
+                Document currentDoc = GetMainDocumentByEntity(Id.ToString(), EnumVal);
+
+                if (currentDoc != null)
+                {
+                    await Delete(currentDoc.Id);
+                    RemoveImage(Id, currentDoc.Id, currentDoc.FileName, EnumVal);
+                }
+                #endregion
+
+
+                #region Adding Doc
+                Document doc = new Document()
+                {
+                    RefEntityTypeID = EnumVal,
+                    RefEntityID = Id.ToString(),
+                    FileName = ImageName,
+                    FileExtension = Path.GetExtension(ImageName),
+                    IsMain = IsMain
+                };
+
+                if (!await Add(doc))
+                {
+
+                return false;
+
+                }
+
+                AddFileBase64(Id, doc.Id, EnumVal, ImageName, ImageBase64);
+
+            #endregion
+            return true;
+            #endregion
+        }
 
     }
 }

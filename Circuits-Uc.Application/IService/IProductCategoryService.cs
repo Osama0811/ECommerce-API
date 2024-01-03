@@ -1,5 +1,6 @@
 ﻿using CircuitsUc.Application.Communications;
 using CircuitsUc.Application.DTOS.ProductCategoryDTO;
+using CircuitsUc.Domain.IRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace CircuitsUc.Application.IService
     {
         Task<GeneralResponse<List<ProductCategoryDto>>> GetAll(Guid? ParentID,string? SearchTxt,bool IsEnglish);
         Task<GeneralResponse<List<ProductCategoryDto>>> GetAllCategoryPortal(Guid? ParentID,bool IsEnglish);
+        Task<GeneralResponse<List<DropDownResponse>>> GetProductCategoryDDL(bool isEnglish);
         Task<GeneralResponse<ProductCategoryDto>> GetByIdAsync(Guid Id,bool IsEnglish);
         Task<GeneralResponse<Guid>> Add(ProductCategoryInput Input, Guid UserId);
         Task<GeneralResponse<Guid>> Update(ProductCategoryUpdateInput Input, Guid UserId);

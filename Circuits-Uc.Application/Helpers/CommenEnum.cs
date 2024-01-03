@@ -15,7 +15,9 @@ namespace CircuitsUc.Application.Helpers
         {
             Admin = 1,
             Customer = 2,
-            ProductCategory=3
+            ProductCategory=3,
+            ProductImage=4,
+            ProductFile=5
         } 
      
 

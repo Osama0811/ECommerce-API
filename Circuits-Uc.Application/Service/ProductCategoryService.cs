@@ -231,6 +231,26 @@ namespace CircuitsUc.Application.Service
 
             }
         }
+        public async Task<GeneralResponse<List<DropDownResponse>>> GetProductCategoryDDL(bool isEnglish)
+        {
+            var data = _unit.ProductCategory.All()
+                    .Select(z => new
+                    {
+                        ID = z.Id,
+                        Title = isEnglish ? z.NameEn : z.NameAr,
+
+                    });
+
+            var results = await data.Select(z => new DropDownResponse
+            {
+                Id = z.ID,
+                Name = z.Title,
+            }).ToListAsync();
+
+            return new GeneralResponse<List<DropDownResponse>>(results, results.Count().ToString());
+
+        }
+
         public string? GetProductCategoryImage(Guid Id)
         {
             int _enumVal = (int)CommenEnum.EntityType.ProductCategory;

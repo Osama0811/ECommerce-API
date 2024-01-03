@@ -19,6 +19,7 @@ using CircuitsUc.Application.IServices;
 using CircuitsUc.Application.Services;
 using CircuitsUc.Application.IService;
 using CircuitsUc.Application.Service;
+using Microsoft.Extensions.FileProviders;
 
 namespace CircuitsUc.Api
 {
@@ -129,10 +130,10 @@ namespace CircuitsUc.Api
             //        Example = new OpenApiString("00:00:00")
             //    });
             //});
-            /* services.AddSingleton<IFileProvider>(
-                     new PhysicalFileProvider(
-                     Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
- */
+            services.AddSingleton<IFileProvider>(
+                    new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
+
             //services.AddAutoMapper(typeof(Startup));
             //services.AddMediatR(typeof(CreateEmployeeHandler).GetTypeInfo().Assembly);
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -141,6 +142,7 @@ namespace CircuitsUc.Api
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IProductCategoryService, ProductCategoryService>();
+            services.AddScoped<IProductService, ProductService>();
            
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

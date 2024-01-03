@@ -135,6 +135,9 @@
   <data name="ProductCategoryExistBefore" xml:space="preserve">
     <value>النوع موجود مسبقا </value>
   </data>
+  <data name="ProductExistBefore" xml:space="preserve">
+    <value>المنتج موجود مسبقا</value>
+  </data>
   <data name="Succes" xml:space="preserve">
     <value>تمت بنجاح</value>
   </data>
