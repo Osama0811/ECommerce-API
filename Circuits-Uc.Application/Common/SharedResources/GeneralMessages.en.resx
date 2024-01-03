@@ -168,6 +168,9 @@
   <data name="PhoneAlterPhone" xml:space="preserve">
     <value>Phone AlterPhone  exist Before</value>
   </data>
+  <data name="ProductCategoryExistBefore" xml:space="preserve">
+    <value>Product Category Exist Before</value>
+  </data>
   <data name="Succes" xml:space="preserve">
     <value>Succes</value>
   </data>

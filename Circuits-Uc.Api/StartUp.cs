@@ -18,6 +18,7 @@ using CircuitsUc.Api.Middleware;
 using CircuitsUc.Application.IServices;
 using CircuitsUc.Application.Services;
 using CircuitsUc.Application.IService;
+using CircuitsUc.Application.Service;
 
 namespace CircuitsUc.Api
 {
@@ -139,6 +140,7 @@ namespace CircuitsUc.Api
             services.AddScoped<ISecurityUserService, SecurityUserService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IDocumentService, DocumentService>();
+            services.AddScoped<IProductCategoryService, ProductCategoryService>();
            
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

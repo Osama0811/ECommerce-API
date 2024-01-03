@@ -14,7 +14,8 @@ namespace CircuitsUc.Application.Helpers
         public enum EntityType
         {
             Admin = 1,
-            Customer = 2
+            Customer = 2,
+            ProductCategory=3
         } 
      
 

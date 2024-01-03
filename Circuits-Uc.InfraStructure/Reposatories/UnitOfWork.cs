@@ -16,6 +16,7 @@ namespace CircuitsUc.InfraStructure.Reposatories
         private DBContext context;
         public IRepository<SecurityUser> SecurityUser { get; private set; }
         public IRepository<Document> Document { get; private set; }
+        public IRepository<ProductCategory> ProductCategory { get; private set; }
        
 
 
@@ -25,6 +26,7 @@ namespace CircuitsUc.InfraStructure.Reposatories
             this.context = context;
             SecurityUser = new Repository<SecurityUser>(this.context);
             Document = new Repository<Document>(this.context);
+            ProductCategory = new Repository<ProductCategory>(this.context);
            
 
 

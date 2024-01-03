@@ -156,8 +156,11 @@ namespace CircuitsUc.Application.Services
         }
         public async Task<GeneralResponse<Guid>> Update(SecurityUserUpdateInput Input, Guid UserId)
         {
-            
-            SecurityUser securityUser = await _unit.SecurityUser.GetByIdAsync(Input.Id);
+
+            try
+            {
+
+                SecurityUser securityUser = await _unit.SecurityUser.GetByIdAsync(Input.Id);
 
             securityUser = _mapper.Map<SecurityUserUpdateInput, SecurityUser>(Input,securityUser);
             securityUser.UpdatedBy = UserId;
@@ -221,6 +224,13 @@ namespace CircuitsUc.Application.Services
          
             return results >= 1 ? new GeneralResponse<Guid>(securityUser.Id, _localization["updatedSuccessfully"].Value) :
                 new GeneralResponse<Guid>(_localization["ErrorInEdit"].Value, System.Net.HttpStatusCode.BadRequest);
+            }
+            catch (Exception ex)
+            {
+
+                return new GeneralResponse<Guid>(ex.Message + "-" + ex.InnerException?.Message, System.Net.HttpStatusCode.BadRequest);
+
+            }
         }
         public async Task<GeneralResponse<List<Guid>>>SoftRangeDelete(List<Guid> Id)
         {

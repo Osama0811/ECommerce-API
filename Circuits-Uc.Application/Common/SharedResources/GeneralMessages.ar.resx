@@ -132,6 +132,9 @@
   <data name="PassIsNotCorrect" xml:space="preserve">
     <value>كلمة المرور غير صحيحه</value>
   </data>
+  <data name="ProductCategoryExistBefore" xml:space="preserve">
+    <value>النوع موجود مسبقا </value>
+  </data>
   <data name="Succes" xml:space="preserve">
     <value>تمت بنجاح</value>
   </data>
