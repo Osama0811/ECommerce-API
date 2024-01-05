@@ -16,6 +16,7 @@ namespace CircuitsUc.Domain.IRepositories
         IRepository<ProductCategory> ProductCategory { get; }
         IRepository<Product> Product { get; }
         IRepository<SystemParameter> SystemParameter { get; }
+        IRepository<PageContent> PageContent { get; }
       
 
 

@@ -19,6 +19,7 @@ namespace CircuitsUc.InfraStructure.Reposatories
         public IRepository<ProductCategory> ProductCategory { get; private set; }
         public IRepository<Product> Product { get; private set; }
         public IRepository<SystemParameter> SystemParameter { get; private set; }
+        public IRepository<PageContent> PageContent { get; private set; }
        
 
 
@@ -31,6 +32,7 @@ namespace CircuitsUc.InfraStructure.Reposatories
             ProductCategory = new Repository<ProductCategory>(this.context);
             Product = new Repository<Product>(this.context);
             SystemParameter = new Repository<SystemParameter>(this.context);
+            PageContent = new Repository<PageContent>(this.context);
            
         }
 

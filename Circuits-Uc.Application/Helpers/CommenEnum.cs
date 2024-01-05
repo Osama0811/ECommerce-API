@@ -22,6 +22,7 @@ namespace CircuitsUc.Application.Helpers
             ProductImage=4,
             ProductFile=5,
             SystemParameter=6,
+            PageContent=7
         }
         public enum PageType
         {

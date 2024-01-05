@@ -145,6 +145,7 @@ namespace CircuitsUc.Api
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IPageTypeService, PageTypeService>();
             services.AddScoped<ISystemParameterServices, SystemParameterService>();
+            services.AddScoped<IPageContentService, PageContentService>();
            
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

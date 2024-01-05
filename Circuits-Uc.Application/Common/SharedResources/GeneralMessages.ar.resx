@@ -135,6 +135,12 @@
   <data name="LoginSuccessfully" xml:space="preserve">
     <value>تمت تسجيل الدخول بنجاح</value>
   </data>
+  <data name="NameExist" xml:space="preserve">
+    <value>موجود مسبقا</value>
+  </data>
+  <data name="PageContentExistBefore" xml:space="preserve">
+    <value>Page Content Exist Before</value>
+  </data>
   <data name="Partners" xml:space="preserve">
     <value>الشركاء</value>
   </data>

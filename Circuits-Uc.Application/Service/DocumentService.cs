@@ -1,4 +1,5 @@
 ﻿using CircuitsUc.Application.Communications;
+using CircuitsUc.Application.DTOS.SystemParameterKeyDTO;
 using CircuitsUc.Application.Helpers;
 using CircuitsUc.Application.IServices;
 using CircuitsUc.Domain.Entities;
@@ -78,11 +79,11 @@ namespace CircuitsUc.Application.Services
 
         public string  GetImagePath(Guid RefEntityID, Guid docCode, string enumValue, string FileName)
         {
-            var WebSite = "";
-            var webSiteUrl = WebSite == null ? null :WebSite;
+            var WebSite = _unit.SystemParameter.All().FirstOrDefault(ex => ex.SettingKey.Equals(CommenEnum.SystemParameterKey.WebSiteUrl.ToString()));
+            var webSiteUrl = WebSite == null ? null : JsonConvert.DeserializeObject<WebSiteUrl>(WebSite.SettingValueEN);
             var ImagePath = DocumentController.GetImage(RefEntityID, docCode, enumValue, FileName);
             ImagePath = WebSite == null ? ImagePath :
-                webSiteUrl + "/" + ImagePath;
+                webSiteUrl.Url + "/" + ImagePath;
             return ImagePath;
 
         }
