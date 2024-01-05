@@ -17,7 +17,7 @@ namespace CircuitsUc.Application.DTOS.ProductCategoryDTO
 
         public string? DescriptionEn { get; set; }
         public Nullable<Guid> ParentID { get; set; } //= default(Nullable<Guid>);
-        public string? ImageBase64 { get; set; }
-        public string? FileName { get; set; }
+        public required string ImageBase64 { get; set; }
+        public required string FileName { get; set; }
     }
 }

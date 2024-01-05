@@ -9,9 +9,9 @@ namespace CircuitsUc.Application.DTOS.ProductCategoryDTO
     public  class ProductCategoryUpdateInput
     {
         public Guid Id { get; set; }
-        public string NameAr { get; set; }
+        public required string NameAr { get; set; }
 
-        public string NameEn { get; set; }
+        public required string NameEn { get; set; }
         public string? Icon { get; set; }
 
         public string? DescriptionAr { get; set; }

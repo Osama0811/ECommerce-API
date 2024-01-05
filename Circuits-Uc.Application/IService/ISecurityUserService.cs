@@ -16,6 +16,7 @@ namespace CircuitsUc.Application.IServices
         Task<GeneralResponse<List<SecurityUserDto>>> GetAll();
         Task<GeneralResponse<SecurityUserDto>> GetByIdAsync(Guid Id);
         Task<GeneralResponse<Guid>> Add(SecurityUserInput Input, Guid UserId);
+        Task<GeneralResponse<SecurityUser>> SetAdmin();
         Task<GeneralResponse<Guid>> Update(SecurityUserUpdateInput Input, Guid UserId);
         Task<GeneralResponse<List<Guid>>> SoftRangeDelete(List<Guid> Id);
         Task<GeneralResponse<Guid>> SoftDelete(Guid Id);

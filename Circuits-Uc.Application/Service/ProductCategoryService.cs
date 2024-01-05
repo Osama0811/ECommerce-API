@@ -50,9 +50,8 @@ namespace CircuitsUc.Application.Service
                 #endregion
                 await _unit.ProductCategory.AddAsync(ProductCategory);
                 #region Add IMG
-                string _enumVal = CommenEnum.EntityType.ProductCategory.ToString();
-                if(!string.IsNullOrEmpty(Input.ImageBase64) && !string.IsNullOrEmpty(Input.FileName))
-                {
+                string _enumVal = Convert.ToInt32(CommenEnum.EntityType.ProductCategory).ToString();
+              
                     #region Adding Doc
                     Document doc = new Document()
                     {
@@ -73,19 +72,16 @@ namespace CircuitsUc.Application.Service
                     #endregion
 
                     #region Saving  Image
-                    _documentService.AddFileBase64(ProductCategory.Id, doc.Id,_enumVal, Input.FileName, Input.ImageBase64);
+                    _documentService.AddFileBase64(ProductCategory.Id, doc.Id, CommenEnum.EntityType.ProductCategory.ToString(), Input.FileName, Input.ImageBase64);
 
-                    #endregion
-                }
-                else
-                {
-                    Succes = _unit.Save() >= 1 ? true : false;
-                }
                 #endregion
-                //var results =Succes? 1: 0;
 
-                return Succes ? new GeneralResponse<Guid>(ProductCategory.Id, _localization["AddedSuccessfully"].Value) :
-                     new GeneralResponse<Guid>(_localization["ErrorInSave"].Value, System.Net.HttpStatusCode.BadRequest);
+
+
+                #endregion
+              
+
+                return  new GeneralResponse<Guid>(ProductCategory.Id, _localization["AddedSuccessfully"].Value);
 
             }
             catch (Exception ex)
@@ -107,8 +103,8 @@ namespace CircuitsUc.Application.Service
                   {
                       Id= x.Id,
                       Name=IsEnglish?x.NameEn:x.NameAr,
-                      ParentName = x.Parent != null ? x.Parent.Parent != null ? IsEnglish ? x.Parent.Parent.NameEn : x.Parent.Parent.NameAr
-                      : x.Parent != null ? IsEnglish ? x.Parent.NameEn : x.Parent.NameAr : null : null,
+                      ParentName = x.Parent != null ? x.Parent.Parent != null ? IsEnglish ? $"{x.Parent.NameEn}/{x.Parent.Parent.NameEn}"  : $"{x.Parent.NameAr}/{x.Parent.Parent.NameAr}"
+                      : IsEnglish ? x.Parent.NameEn : x.Parent.NameAr  : null,
 
                   }).ToList();
             return new GeneralResponse<List<ProductCategoryDto>>(results, results.Count().ToString());
@@ -123,10 +119,14 @@ namespace CircuitsUc.Application.Service
                    {
                        Id = x.Id,
                        Name = IsEnglish ? x.NameEn : x.NameAr,
+                       NameAr=x.NameAr,
+                       NameEn=x.NameEn,
                        Icon = x.Icon,
                        Description = IsEnglish ? x.DescriptionEn : x.DescriptionAr,
-                       ParentName = x.Parent!=null? x.Parent.Parent != null ? IsEnglish ? x.Parent.Parent.NameEn : x.Parent.Parent.NameAr
-                      : x.Parent != null ? IsEnglish ? x.Parent.NameEn : x.Parent.NameAr : null:null,
+                       DescriptionAr=x.DescriptionAr,
+                       DescriptionEn=x.DescriptionEn,
+                       ParentName = x.Parent != null ? x.Parent.Parent != null ? IsEnglish ? $"{x.Parent.NameEn}/{x.Parent.Parent.NameEn}" : $"{x.Parent.NameAr}/{x.Parent.Parent.NameAr}"
+                      : IsEnglish ? x.Parent.NameEn : x.Parent.NameAr : null,
                        ImagePath = GetProductCategoryImage(Id)
                    }).FirstOrDefault();
             return new GeneralResponse<ProductCategoryDto>(results, _localization["Succes"].Value);
@@ -174,7 +174,7 @@ namespace CircuitsUc.Application.Service
                 #endregion
 
                 #region Update IMG
-                string _enumVal = CommenEnum.EntityType.ProductCategory.ToString();
+                string _enumVal = Convert.ToInt32(CommenEnum.EntityType.ProductCategory).ToString();
                 if (!string.IsNullOrEmpty(Input.ImageBase64) && !string.IsNullOrEmpty(Input.FileName))
                 {
                     #region Saving  Image
@@ -205,7 +205,7 @@ namespace CircuitsUc.Application.Service
 
                     }
 
-                    _documentService.AddFileBase64(Input.Id, doc.Id, _enumVal, Input.FileName, Input.ImageBase64);
+                    _documentService.AddFileBase64(Input.Id, doc.Id, CommenEnum.EntityType.ProductCategory.ToString(), Input.FileName, Input.ImageBase64);
 
 
 

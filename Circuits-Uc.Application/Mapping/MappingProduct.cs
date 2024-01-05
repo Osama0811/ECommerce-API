@@ -18,8 +18,13 @@ namespace CircuitsUc.Application.Mapping
             .ForMember(dest => dest.DescriptionEn, opt => opt.MapFrom(src => src.DescriptionEn != null ? src.DescriptionEn : src.ShortDescriptionEn));
             
             CreateMap<ProductUpdateInput, Product>()
-            .ForMember(dest => dest.DescriptionAr, opt => opt.MapFrom(src => src.DescriptionAr != null ? src.DescriptionAr : src.ShortDescriptionAr))
-            .ForMember(dest => dest.DescriptionEn, opt => opt.MapFrom(src => src.DescriptionEn != null ? src.DescriptionEn : src.ShortDescriptionEn));
+                   .ForMember(dest => dest.NameAr, opt => opt.MapFrom(src => src.NameAr))
+                   .ForMember(dest => dest.NameEn, opt => opt.MapFrom(src => src.NameAr))
+                   .ForMember(dest => dest.ShortDescriptionAr, opt => opt.MapFrom(src => src.ShortDescriptionAr))
+                   .ForMember(dest => dest.ShortDescriptionEn, opt => opt.MapFrom(src => src.ShortDescriptionEn))
+                   .ForMember(dest => dest.CategoryID, opt => opt.MapFrom(src => src.CategoryID))
+                   .ForMember(dest => dest.DescriptionAr, opt => opt.MapFrom(src => src.DescriptionAr != null ? src.DescriptionAr : src.ShortDescriptionAr))
+                   .ForMember(dest => dest.DescriptionEn, opt => opt.MapFrom(src => src.DescriptionEn != null ? src.DescriptionEn : src.ShortDescriptionEn));
         }
 
     }

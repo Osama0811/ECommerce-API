@@ -16,6 +16,9 @@ namespace CircuitsUc.InfraStructure.Presistance
         public virtual DbSet<SecurityUser> SecurityUsers { get; set; }
         public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<ProductCategory> ProductCategorys { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<SystemParameter> SystemParameters { get; set; }
+        public virtual DbSet<PageContent> PageContents { get; set; }
        
 
 

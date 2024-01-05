@@ -41,6 +41,13 @@ namespace CircuitsUc.Api.Controllers
             bool isEnglish = Request.Headers["Accept-Language"].ToString().ToLower().Contains("en");
             return await _ProductService.GetAll(CategoryID, null, isEnglish);
         }
+        [HttpGet("GetById")]
+        public async Task<GeneralResponse<ProductDto>> GetById(Guid Id)
+        {
+
+            bool isEnglish = Request.Headers["Accept-Language"].ToString().ToLower().Contains("en");
+            return await _ProductService.GetByIdAsync(Id, isEnglish);
+        }
         #endregion
         #region SystemParameter
         #endregion

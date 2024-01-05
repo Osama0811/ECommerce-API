@@ -4,6 +4,7 @@ using CircuitsUc.InfraStructure.Presistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CircuitsUc.InfraStructure.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20240104112928_Create-SystemParameter")]
+    partial class CreateSystemParameter
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,76 +77,6 @@ namespace CircuitsUc.InfraStructure.Migrations
                     b.HasIndex("UpdatedBy");
 
                     b.ToTable("Documents");
-                });
-
-            modelBuilder.Entity("CircuitsUc.Domain.Entities.PageContent", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("CreationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DescriptionAr")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DescriptionEn")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("NameAr")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("NameEn")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("PostedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("PostedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("Rank")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ShortDescriptionAr")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("ShortDescriptionEn")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<int>("TypeID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("UpdatedBy");
-
-                    b.ToTable("PageContents");
                 });
 
             modelBuilder.Entity("CircuitsUc.Domain.Entities.Product", b =>
@@ -354,11 +287,13 @@ namespace CircuitsUc.InfraStructure.Migrations
 
                     b.Property<string>("SettingValueAR")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("SettingValueEN")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<Guid?>("UpdatedBy")
                         .HasColumnType("uniqueidentifier");
@@ -376,21 +311,6 @@ namespace CircuitsUc.InfraStructure.Migrations
                 });
 
             modelBuilder.Entity("CircuitsUc.Domain.Entities.Document", b =>
-                {
-                    b.HasOne("CircuitsUc.Domain.Entities.SecurityUser", "CreatedByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy");
-
-                    b.HasOne("CircuitsUc.Domain.Entities.SecurityUser", "UpdatedByUser")
-                        .WithMany()
-                        .HasForeignKey("UpdatedBy");
-
-                    b.Navigation("CreatedByUser");
-
-                    b.Navigation("UpdatedByUser");
-                });
-
-            modelBuilder.Entity("CircuitsUc.Domain.Entities.PageContent", b =>
                 {
                     b.HasOne("CircuitsUc.Domain.Entities.SecurityUser", "CreatedByUser")
                         .WithMany()

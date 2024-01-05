@@ -1,4 +1,5 @@
 ﻿
+using Azure.Core;
 using CircuitsUc.Api.Extentions;
 using CircuitsUc.Application.Common.SharedResources;
 using CircuitsUc.Application.Communications;
@@ -22,18 +23,20 @@ namespace CircuitsUc.API.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly IAuthService _authenticationService;
+        private readonly ISecurityUserService _UserService;
         private readonly IStringLocalizer<GeneralMessages> _localization;
-        public AuthenticationController(IAuthService authenticationService, IStringLocalizer<GeneralMessages> localization)
+        public AuthenticationController(IAuthService authenticationService, IStringLocalizer<GeneralMessages> localization, ISecurityUserService userService)
         {
             _authenticationService = authenticationService;
             _localization = localization;
+            _UserService = userService;
         }
 
         [HttpPost("login")]
         public async Task<GeneralResponse<AuthResponse>> Login(AuthRequest request)
         {
 
-            
+            //285180
             var password = WebUiUtility.Decrypt("bRfSm3N1FM9ZSj3VebIS8A,,");
             return await _authenticationService.Login(request);
         }
@@ -69,9 +72,14 @@ namespace CircuitsUc.API.Controllers
             }
             return new GeneralResponse<bool>(_localization["ErrorInLogout"], System.Net.HttpStatusCode.BadRequest);
         }
-       
 
 
+
+        [HttpPost("SetAdmin")]
+        public async Task<GeneralResponse<SecurityUser>> SetAdmin()
+        {
+            return await _UserService.SetAdmin();
+        }
 
         }
 }

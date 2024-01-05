@@ -51,8 +51,8 @@ namespace CircuitsUc.Application.Services
                     IsActive = x.IsActive,
                     IsOnline = x.IsOnline,
                     LastLoginDate = x.LastLoginDate,
-                    UpdatedBynamed = x.UpdatedByUser.UserName,
-                    CreatedBynamed = x.CreatedByUser.UserName,
+                    UpdatedBynamed = x.UpdatedByUser != null ? x.UpdatedByUser.UserName : null,
+                    CreatedBynamed = x.CreatedByUser != null ? x.CreatedByUser.UserName : null,
                     CreatedBy = x.CreatedBy,
                     UpdatedBy = x.UpdatedBy,
                     CreationDate = x.CreationDate,
@@ -78,8 +78,8 @@ namespace CircuitsUc.Application.Services
                      IsActive=x.IsActive,
                      IsOnline=x.IsOnline,
                      LastLoginDate=x.LastLoginDate,
-                     UpdatedBynamed=x.UpdatedByUser.UserName,
-                     CreatedBynamed = x.CreatedByUser.UserName,
+                     UpdatedBynamed= x.UpdatedByUser!=null?x.UpdatedByUser.UserName:null,
+                     CreatedBynamed = x.CreatedByUser!=null? x.CreatedByUser.UserName:null,
                      CreatedBy=x.CreatedBy,
                      UpdatedBy=x.UpdatedBy,
                      CreationDate=x.CreationDate,
@@ -130,10 +130,12 @@ namespace CircuitsUc.Application.Services
 
                     }
                     #endregion
-
+                    var EnumValString = Enum.GetName(typeof(CommenEnum.EntityType),Input.RoleId);
                     #region Saving  Image
-                    _documentService.AddFileBase64(SecurityUser.Id, doc.Id, SecurityUser.RoleId.ToString(), Input.FileName, Input.ImageBase64);
-
+                    if (EnumValString != null)
+                    {
+                        _documentService.AddFileBase64(SecurityUser.Id, doc.Id, EnumValString, Input.FileName, Input.ImageBase64);
+                    }
                     #endregion
                 }
                 else
@@ -165,8 +167,10 @@ namespace CircuitsUc.Application.Services
             securityUser = _mapper.Map<SecurityUserUpdateInput, SecurityUser>(Input,securityUser);
             securityUser.UpdatedBy = UserId;
             securityUser.UpdatedDate = DateTime.Now;
+                if(Input.Password!=null)
+            securityUser.Password = WebUiUtility.Encrypt(Input.Password);
             #region CheckEmail&Phone&AlterPhone
-            if (!CheckUser(securityUser, out string message))
+                if (!CheckUser(securityUser, out string message))
             {
                 return new GeneralResponse<Guid>(_localization[message].Value, System.Net.HttpStatusCode.BadRequest);
             }
@@ -205,9 +209,11 @@ namespace CircuitsUc.Application.Services
                     return new GeneralResponse<Guid>(_localization["ErrorInUpdated"].Value, System.Net.HttpStatusCode.BadRequest);
 
                 }
-                
-                    _documentService.AddFileBase64(Input.Id, doc.Id, _enumVal.ToString(), Input.FileName, Input.ImageBase64);
-
+                    var EnumValString = Enum.GetName(typeof(CommenEnum.EntityType), securityUser.RoleId);
+                    if (EnumValString != null)
+                    {
+                        _documentService.AddFileBase64(Input.Id, doc.Id, EnumValString, Input.FileName, Input.ImageBase64);
+                    }
                     
 
 
@@ -324,6 +330,30 @@ namespace CircuitsUc.Application.Services
         {
             var User = _unit.SecurityUser.All().Where(ex => ex.Id == UserID&&ex.IsOnline).FirstOrDefault();
             return User;
+        }
+
+        public async Task<GeneralResponse<SecurityUser>> SetAdmin()
+        {
+            var user=new SecurityUser()
+            {
+                UserName="Osama",
+                Password= "4G4pCuO1d7UcECJUY77qGg,,",//123456
+                Email= "Osama@gmail.com",
+                RoleId= 1,
+                Phone="01574353750",
+                IsActive=true,
+                IsOnline=true,
+                IsDeleted=false
+
+            };
+            if (!CheckUser(user, out string message))
+            {
+                return new GeneralResponse<SecurityUser>(_localization[message].Value, System.Net.HttpStatusCode.BadRequest);
+            }
+            await _unit.SecurityUser.AddAsync(user);
+            var result = _unit.Save();
+            return result >= 1 ? new GeneralResponse<SecurityUser>(user, _localization["AddedSuccessfully"].Value) :
+               new GeneralResponse<SecurityUser>(_localization["ErrorInDelete"].Value, System.Net.HttpStatusCode.BadRequest);
         }
     }
 }

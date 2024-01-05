@@ -146,11 +146,14 @@ namespace CircuitsUc.Application.Services
                 return false;
 
                 }
-
+            var EnumValString = Enum.GetName(typeof(CommenEnum.EntityType), EnumVal);
+            if (EnumValString != null)
+            {
                 AddFileBase64(Id, doc.Id, EnumVal, ImageName, ImageBase64);
-
+                return true;
+            }
             #endregion
-            return true;
+           return false;
             #endregion
         }
 

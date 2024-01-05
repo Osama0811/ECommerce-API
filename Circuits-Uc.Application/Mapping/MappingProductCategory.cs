@@ -15,7 +15,13 @@ namespace CircuitsUc.Application.Mapping
         public MappingProductCategory()
         {
             CreateMap<ProductCategoryInput, ProductCategory>();
-            CreateMap<ProductCategoryUpdateInput, ProductCategory>();
+            CreateMap<ProductCategoryUpdateInput, ProductCategory>()
+                   .ForMember(dest => dest.NameAr, opt => opt.MapFrom(src => src.NameAr))
+                   .ForMember(dest => dest.NameEn, opt => opt.MapFrom(src => src.NameAr))
+                   .ForMember(dest => dest.Icon, opt => opt.MapFrom(src => src.Icon))
+                   .ForMember(dest => dest.DescriptionAr, opt => opt.MapFrom(src => src.DescriptionAr))
+                   .ForMember(dest => dest.DescriptionEn, opt => opt.MapFrom(src => src.DescriptionEn))
+                   .ForMember(dest => dest.ParentID, opt => opt.MapFrom(src => src.ParentID));
         }
     }
 }

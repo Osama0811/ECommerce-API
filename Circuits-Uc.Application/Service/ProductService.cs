@@ -40,6 +40,8 @@ namespace CircuitsUc.Application.Service
                 var Product = _mapper.Map<ProductInput, Product>(Input);
                 Product.CreatedBy = UserId;
                 Product.CreationDate = DateTime.Now;
+                Product.DescriptionAr = Input.DescriptionAr != null ? Input.DescriptionAr.ToString() : Input.ShortDescriptionAr;
+                Product.DescriptionEn = Input.DescriptionEn != null ? Input.DescriptionEn.ToString() : Input.ShortDescriptionEn;
                 #region CheckProduct
                 if (!CheckProduct(Product, out string message))
                 {
@@ -50,22 +52,21 @@ namespace CircuitsUc.Application.Service
                 #region UpLoad File & Image
                 if (!string.IsNullOrEmpty(Input.FileBase64) && !string.IsNullOrEmpty(Input.FileName))
                 {
-                    if (! await _documentService.PostImageAction(Product.Id, CommenEnum.EntityType.ProductFile.ToString(), Input.FileBase64,Input.FileName,false))
+                    if (! await _documentService.PostImageAction(Product.Id, Convert.ToInt32(CommenEnum.EntityType.ProductFile).ToString(), Input.FileBase64,Input.FileName,false))
                     {
 
                         return new GeneralResponse<Guid>(_localization["ErrorInSave"].Value, System.Net.HttpStatusCode.BadRequest);
 
                     }
                 }
-                if (!string.IsNullOrEmpty(Input.ImageName) && !string.IsNullOrEmpty(Input.ImageName))
-                {
-                    if (!await _documentService.PostImageAction(Product.Id, CommenEnum.EntityType.ProductImage.ToString(), Input.ImageBase64, Input.ImageName, true))
+             //Image
+                    if (!await _documentService.PostImageAction(Product.Id, Convert.ToInt32(CommenEnum.EntityType.ProductImage).ToString(), Input.ImageBase64, Input.ImageName, true))
                     {
 
                         return new GeneralResponse<Guid>(_localization["ErrorInSave"].Value, System.Net.HttpStatusCode.BadRequest);
 
                     }
-                }
+                
                 #endregion
                 //#region Add File
                 //if (!string.IsNullOrEmpty(Input.FileBase64) && !string.IsNullOrEmpty(Input.FileName))
@@ -130,9 +131,7 @@ namespace CircuitsUc.Application.Service
                 //#endregion
                 //var results =Succes? 1: 0;
 
-                var results = _unit.Save();
-                return results >= 1 ? new GeneralResponse<Guid>(Product.Id, _localization["AddedSuccessfully"].Value) :
-                     new GeneralResponse<Guid>(_localization["ErrorInSave"].Value, System.Net.HttpStatusCode.BadRequest);
+                return  new GeneralResponse<Guid>(Product.Id, _localization["AddedSuccessfully"].Value) ;
 
             }
             catch (Exception ex)
@@ -155,10 +154,10 @@ namespace CircuitsUc.Application.Service
                       Id = x.Id,
                       Name = IsEnglish ? x.NameEn : x.NameAr,
                       ShortDescription=IsEnglish? x.ShortDescriptionEn : x.ShortDescriptionAr,
-                      CategoryName = (IsEnglish ? x?.Category?.Parent?.NameEn : x?.Category?.Parent?.NameAr) ??
-               (IsEnglish ? x?.Category?.NameEn : x?.Category?.NameAr) ?? null,
-                      //CategoryName = x.Category != null ? x.Category.Parent != null ? IsEnglish ? x.Category.Parent.NameEn : x.Category.Parent.NameAr
-                      //: x.Category != null ? IsEnglish ? x.Category.NameEn : x.Category.NameAr : null : null,
+                      //       CategoryName = (IsEnglish ? x?.Category?.Parent?.NameEn : x?.Category?.Parent?.NameAr) ??
+                      //(IsEnglish ? x?.Category?.NameEn : x?.Category?.NameAr) ?? null,
+                      CategoryName = x.Category != null ? x.Category.Parent != null ? IsEnglish ? $"{x.Category.NameEn}/{x.Category.Parent.NameEn}" : $"{x.Category.NameEn}/{x.Category.Parent.NameEn}"
+                      : x.Category != null ? IsEnglish ? x.Category.NameEn : x.Category.NameAr : null : null,
 
                   }).ToList();
             return new GeneralResponse<List<ProductDto>>(results, results.Count().ToString());
@@ -181,12 +180,12 @@ namespace CircuitsUc.Application.Service
                        Description = IsEnglish ? x.DescriptionEn : x.DescriptionAr,
                        DescriptionEn = x.DescriptionEn,
                        DescriptionAr = x.DescriptionAr,
-                       CategoryName = (IsEnglish ? x?.Category?.Parent?.NameEn : x?.Category?.Parent?.NameAr )??
-               (IsEnglish ? x?.Category?.NameEn : x?.Category?.NameAr) ?? null,
-            //CategoryName=x.Category!.Parent.NameAr,
-            // CategoryName = x.Category != null ? x.Category.Parent != null ? IsEnglish ? x.Category.Parent.NameEn : x.Category.Parent.NameAr
-            //: x.Category != null ? IsEnglish ? x.Category.NameEn : x.Category.NameAr : null : null,
-            ImagePath = GetProductImage(Id),
+                       CategoryName = x.Category != null ? x.Category.Parent != null ? IsEnglish ? $"{x.Category.NameEn}/{x.Category.Parent.NameEn}" : $"{x.Category.NameEn}/{x.Category.Parent.NameEn}"
+                      : x.Category != null ? IsEnglish ? x.Category.NameEn : x.Category.NameAr : null : null,
+                       //CategoryName=x.Category!.Parent.NameAr,
+                       // CategoryName = x.Category != null ? x.Category.Parent != null ? IsEnglish ? x.Category.Parent.NameEn : x.Category.Parent.NameAr
+                       //: x.Category != null ? IsEnglish ? x.Category.NameEn : x.Category.NameAr : null : null,
+                       ImagePath = GetProductImage(Id),
             FilePath = GetProductFile(Id),
                    }).FirstOrDefault();
             return new GeneralResponse<ProductDto>(results, _localization["Succes"].Value);
@@ -233,7 +232,7 @@ namespace CircuitsUc.Application.Service
                 #region UpLoad File & Image
                 if (!string.IsNullOrEmpty(Input.FileBase64) && !string.IsNullOrEmpty(Input.FileName))
                 {
-                    if (!await _documentService.PostImageAction(product.Id, CommenEnum.EntityType.ProductFile.ToString(), Input.FileBase64, Input.FileName, false))
+                    if (!await _documentService.PostImageAction(product.Id, Convert.ToInt32(CommenEnum.EntityType.ProductFile).ToString(), Input.FileBase64, Input.FileName, false))
                     {
 
                         return new GeneralResponse<Guid>(_localization["ErrorInSave"].Value, System.Net.HttpStatusCode.BadRequest);
@@ -242,7 +241,7 @@ namespace CircuitsUc.Application.Service
                 }
                 if (!string.IsNullOrEmpty(Input.ImageName) && !string.IsNullOrEmpty(Input.ImageName))
                 {
-                    if (!await _documentService.PostImageAction(product.Id, CommenEnum.EntityType.ProductImage.ToString(), Input.ImageBase64, Input.ImageName, true))
+                    if (!await _documentService.PostImageAction(product.Id, Convert.ToInt32(CommenEnum.EntityType.ProductImage).ToString(), Input.ImageBase64, Input.ImageName, true))
                     {
 
                         return new GeneralResponse<Guid>(_localization["ErrorInSave"].Value, System.Net.HttpStatusCode.BadRequest);
@@ -360,7 +359,7 @@ namespace CircuitsUc.Application.Service
             {
                 return _documentService.GetImagePath
                     (Id, currentDoc.Id,
-                    CommenEnum.EntityType.ProductImage.ToString(), currentDoc.FileName);
+                     CommenEnum.EntityType.ProductImage.ToString(), currentDoc.FileName);
 
             }
             return null;
@@ -380,7 +379,7 @@ namespace CircuitsUc.Application.Service
         }
         private bool CheckProduct(Product product, out string message)
         {
-            if (_unit.Product.All().Any(d => (d.NameEn == product.NameEn || d.NameAr == product.NameAr) && (product.Id == Guid.Empty || product.Id != d.Id)))
+            if (_unit.Product.All().Any(d => (d.NameEn == product.NameEn || d.NameAr == product.NameAr) && (d.CategoryID==product.CategoryID) &&(product.Id == Guid.Empty || product.Id != d.Id)))
             {
                 message = "ProductExistBefore";
                 return false;

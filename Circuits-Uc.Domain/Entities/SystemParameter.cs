@@ -14,9 +14,9 @@ namespace CircuitsUc.Domain.Entities
 
         [StringLength(500)]
         public required string SettingKey { get; set; }
-        [StringLength(500)]
+        
         public required string SettingValueEN { get; set; }
-        [StringLength(500)]
+       
         public required string SettingValueAR{ get; set; }
        
         public bool IsSystemKey { get; set; }

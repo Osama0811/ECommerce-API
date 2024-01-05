@@ -16,10 +16,18 @@ namespace CircuitsUc.Application.Mapping
         {
 
             //CreateMap<UserInput, User>()
-                // .ForMember(dest => dest.AlternativePhone, opt => opt.MapFrom(src => src.AlternativePhone))
+            // .ForMember(dest => dest.AlternativePhone, opt => opt.MapFrom(src => src.AlternativePhone))
 
             CreateMap<SecurityUserInput, SecurityUser>();
-            CreateMap<SecurityUserUpdateInput, SecurityUser>();
+             
+            CreateMap<SecurityUserUpdateInput, SecurityUser>()
+                   .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
+                   .ForMember(dest => dest.RoleId, opt => opt.MapFrom(src => src.RoleId))
+                   .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+                   .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Phone))
+                   .ForMember(dest => dest.AlternativePhone, opt => opt.MapFrom(src => src.AlternativePhone))
+                   .ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password));
+            
 
         }
     }

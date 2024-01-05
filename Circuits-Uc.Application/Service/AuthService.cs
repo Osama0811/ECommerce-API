@@ -48,6 +48,7 @@ namespace CircuitsUc.Application.Services
         {
             #region CheckIsExist
             var Pass = WebUiUtility.Encrypt(request.Password);
+            var Users = _unit.SecurityUser.All();
             var User =  _unit.SecurityUser.All().Where(x => x.Email == request.Email && x.Password ==Pass).FirstOrDefault();
             if (User == null)
             {
@@ -61,12 +62,13 @@ namespace CircuitsUc.Application.Services
             #endregion
             string ImagePath = "", FileName = "";
             var _enumVal = User.RoleId.ToString();
+            var EnumValString = Enum.GetName(typeof(CommenEnum.EntityType), User.RoleId);
             Document currentDoc =  _documentService.GetMainDocumentByEntity(User.Id.ToString(), _enumVal.ToString());
-            if (currentDoc != null)
+            if (currentDoc != null&& EnumValString!=null)
             {
                 ImagePath = _documentService.GetImagePath
                     (User.Id, currentDoc.Id,
-                    _enumVal, currentDoc.FileName);
+                    EnumValString, currentDoc.FileName);
 
                 FileName = currentDoc.FileName;
             }
@@ -126,6 +128,7 @@ namespace CircuitsUc.Application.Services
 
             var User = _unit.SecurityUser.All().Where(z => z.Id == UserID).FirstOrDefault();
             User.IsOnline = false;
+            await _unit.SecurityUser.UpdateAsync(User);
             var Result = await _unit.SaveAsync();
             if (Result > 0)
             {

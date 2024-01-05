@@ -21,7 +21,7 @@ namespace CircuitsUc.Application.DTOS.SecurityUserDTO
 
         public bool IsOnline { get; set; }
         public DateTime? LastLoginDate { get; set; }
-        public string CreatedBynamed { get; set; }
+        public string? CreatedBynamed { get; set; }
         public string? UpdatedBynamed { get; set; }
         public Guid? CreatedBy { get; set; }
         public DateTime? CreationDate { get; set; }

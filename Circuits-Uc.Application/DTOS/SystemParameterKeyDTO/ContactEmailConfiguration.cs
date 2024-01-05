@@ -10,6 +10,7 @@ namespace CircuitsUc.Application.DTOS.SystemParameterKeyDTO
     {
       
         public string FromMailAddress { get; set; }
+        public string ToMailAddress { get; set; }
         public string Password { get; set; }
         public string SMTP { get; set; }
         public string Port { get; set; }
