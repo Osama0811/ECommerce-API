@@ -9,6 +9,7 @@ using CircuitsUc.Application.IServices;
 using CircuitsUc.Application.Models.AuthDTO;
 using CircuitsUc.Domain.Entities;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -41,12 +42,14 @@ namespace CircuitsUc.API.Controllers
             return await _authenticationService.Login(request);
         }
 
-       
 
+        [Authorize]
         [HttpPost("ChangePassword")]
         public async Task<GeneralResponse<ChangeUserPasswordResponse>> ChangePassword(ChangeUserPasswordRequest request)
         {
-            return await _authenticationService.ChangePassword(request);
+            Guid userId = Guid.Parse(HttpContext.GetUserId());
+
+            return await _authenticationService.ChangePassword(request, userId);
         }
        
 

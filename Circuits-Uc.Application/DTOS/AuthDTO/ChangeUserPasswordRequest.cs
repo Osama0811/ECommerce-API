@@ -9,7 +9,7 @@ namespace CircuitsUc.Application.Models.AuthDTO
 {
     public class ChangeUserPasswordRequest
     {
-        public Guid Id { get; set; }
+       // public Guid Id { get; set; }
         [Required]
         public string CurrentPassword { get; set; }
         [Required]

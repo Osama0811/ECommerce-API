@@ -338,7 +338,7 @@ namespace CircuitsUc.Application.Services
             {
                 UserName="Osama",
                 Password= "4G4pCuO1d7UcECJUY77qGg,,",//123456
-                Email= "Osama@gmail.com",
+                Email= "Admin@gmail.com",
                 RoleId= 1,
                 Phone="01574353750",
                 IsActive=true,
@@ -348,10 +348,18 @@ namespace CircuitsUc.Application.Services
             };
             if (!CheckUser(user, out string message))
             {
-                return new GeneralResponse<SecurityUser>(_localization[message].Value, System.Net.HttpStatusCode.BadRequest);
+                var Admin = _unit.SecurityUser.All().Where(x => x.Email == user.Email).FirstOrDefault();
+                if (Admin!=null)
+                {
+                    Admin.Password = WebUiUtility.Decrypt(Admin.Password);
+                    return new GeneralResponse<SecurityUser>(Admin, _localization["AddedSuccessfully"].Value);
+                }
+            user.Password = WebUiUtility.Decrypt(user.Password);
+                return new GeneralResponse<SecurityUser>(user,_localization["AddedSuccessfully"].Value);
             }
             await _unit.SecurityUser.AddAsync(user);
             var result = _unit.Save();
+            user.Password = WebUiUtility.Decrypt(user.Password);
             return result >= 1 ? new GeneralResponse<SecurityUser>(user, _localization["AddedSuccessfully"].Value) :
                new GeneralResponse<SecurityUser>(_localization["ErrorInDelete"].Value, System.Net.HttpStatusCode.BadRequest);
         }

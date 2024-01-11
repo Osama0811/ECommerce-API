@@ -8,7 +8,7 @@
         public string Token { get; set; }
         public string? ImagePath { get; set; }
         public string? FileName { get; set; }  
-        public Guid? Id { get; set; } 
+        //public Guid? Id { get; set; } 
         public int RoleId { get; set; }
 
        

@@ -32,6 +32,13 @@ namespace CircuitsUc.Api.Controllers
 
             bool isEnglish = Request.Headers["Accept-Language"].ToString().ToLower().Contains("en");
             return await _ProductCategoryService.GetByIdAsync(Id,isEnglish);
+        } 
+        [HttpGet("GetProductCategoryDDL")]
+        public async Task<GeneralResponse<List<DropDownResponse>>> GetProductCategoryDDL()
+        {
+
+            bool isEnglish = Request.Headers["Accept-Language"].ToString().ToLower().Contains("en");
+            return await _ProductCategoryService.GetProductCategoryDDL(isEnglish);
         }
 
 

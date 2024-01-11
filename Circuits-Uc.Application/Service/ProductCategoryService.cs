@@ -103,7 +103,7 @@ namespace CircuitsUc.Application.Service
                   {
                       Id= x.Id,
                       Name=IsEnglish?x.NameEn:x.NameAr,
-                      ParentName = x.Parent != null ? x.Parent.Parent != null ? IsEnglish ? $"{x.Parent.NameEn}/{x.Parent.Parent.NameEn}"  : $"{x.Parent.NameAr}/{x.Parent.Parent.NameAr}"
+                      ParentName = x.Parent != null ? x.Parent.Parent != null ? IsEnglish ? $"{x.Parent.Parent.NameEn}/{x.Parent.NameEn}"  : $"{x.Parent.Parent.NameAr}/{x.Parent.NameAr}"
                       : IsEnglish ? x.Parent.NameEn : x.Parent.NameAr  : null,
 
                   }).ToList();
@@ -125,7 +125,7 @@ namespace CircuitsUc.Application.Service
                        Description = IsEnglish ? x.DescriptionEn : x.DescriptionAr,
                        DescriptionAr=x.DescriptionAr,
                        DescriptionEn=x.DescriptionEn,
-                       ParentName = x.Parent != null ? x.Parent.Parent != null ? IsEnglish ? $"{x.Parent.NameEn}/{x.Parent.Parent.NameEn}" : $"{x.Parent.NameAr}/{x.Parent.Parent.NameAr}"
+                       ParentName = x.Parent != null ? x.Parent.Parent != null ? IsEnglish ? $"{x.Parent.Parent.NameEn}/{x.Parent.NameEn}" : $"{x.Parent.Parent.NameAr}/{x.Parent.NameAr}"
                       : IsEnglish ? x.Parent.NameEn : x.Parent.NameAr : null,
                        ImagePath = GetProductCategoryImage(Id)
                    }).FirstOrDefault();
@@ -134,8 +134,24 @@ namespace CircuitsUc.Application.Service
 
         public async Task<GeneralResponse<Guid>> SoftDelete(Guid Id)
         {
+           // var ProductCategory=_unit.ProductCategory.All().Where(x=>x.Id == Id).FirstOrDefault();
+           
+                var SubCategory=_unit.ProductCategory.All().Where(x=>x.ParentID==Id).Select(d=>d.Id).ToList();
+            if ( SubCategory.Count != 0)
+            {
+                await SoftRangeDelete(SubCategory);
+            }
+                await _unit.ProductCategory.SoftDelete(Id);
 
-            await _unit.ProductCategory.SoftDelete(Id);
+
+                var Products = _unit.Product.All().Where(x => x.CategoryID == Id).Select(d => d.Id).ToList();
+            if ( Products.Count != 0)
+            {
+                await _unit.Product.SoftDeleteRangeAsync(Products);
+            }
+         
+
+            
             var results = await _unit.SaveAsync();
 
             return results >= 1 ? new GeneralResponse<Guid>(Id, _localization["DeletedSuccesfully"].Value) :
@@ -146,8 +162,24 @@ namespace CircuitsUc.Application.Service
         public async Task<GeneralResponse<List<Guid>>> SoftRangeDelete(List<Guid> Id)
         {
 
-            await _unit.ProductCategory.SoftDeleteRangeAsync(Id);
+            //await _unit.ProductCategory.SoftDeleteRangeAsync(Id);
 
+            foreach(var Category in Id) {
+
+                var SubCategory = _unit.ProductCategory.All().Where(x => x.ParentID == Category).Select(d => d.Id).ToList();
+                if (SubCategory.Count != 0)
+                {
+                    await SoftRangeDelete(SubCategory);
+                }
+                await _unit.ProductCategory.SoftDelete(Category);
+
+
+                var Products = _unit.Product.All().Where(x => x.CategoryID == Category).Select(d => d.Id).ToList();
+                if (Products.Count != 0)
+                {
+                    await _unit.Product.SoftDeleteRangeAsync(Products);
+                }
+            }
             var results = _unit.Save();
 
             return results >= 1 ? new GeneralResponse<List<Guid>>(Id, _localization["DeletedSuccesfully"].Value) :

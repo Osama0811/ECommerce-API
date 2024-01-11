@@ -96,10 +96,14 @@ namespace CircuitsUc.Application.Services
        
        
        
-        public async Task<GeneralResponse<ChangeUserPasswordResponse>> ChangePassword(ChangeUserPasswordRequest request)
+        public async Task<GeneralResponse<ChangeUserPasswordResponse>> ChangePassword(ChangeUserPasswordRequest request,Guid userId)
         {
 
-            var SecurityUser = _unit.SecurityUser.All().Where(x => x.Id == request.Id).FirstOrDefault();
+            var SecurityUser = _unit.SecurityUser.All().Where(x => x.Id == userId).FirstOrDefault();
+            if (SecurityUser == null)
+            {
+                return new GeneralResponse<ChangeUserPasswordResponse>(_localization["UserNotFound"].Value, System.Net.HttpStatusCode.BadRequest);
+            }
             var oldpassword = WebUiUtility.Encrypt(request.CurrentPassword);
             if (oldpassword != SecurityUser.Password)
             {

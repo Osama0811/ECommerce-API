@@ -156,7 +156,7 @@ namespace CircuitsUc.Application.Service
                       ShortDescription=IsEnglish? x.ShortDescriptionEn : x.ShortDescriptionAr,
                       //       CategoryName = (IsEnglish ? x?.Category?.Parent?.NameEn : x?.Category?.Parent?.NameAr) ??
                       //(IsEnglish ? x?.Category?.NameEn : x?.Category?.NameAr) ?? null,
-                      CategoryName = x.Category != null ? x.Category.Parent != null ? IsEnglish ? $"{x.Category.NameEn}/{x.Category.Parent.NameEn}" : $"{x.Category.NameEn}/{x.Category.Parent.NameEn}"
+                      CategoryName = x.Category != null ? x.Category.Parent != null ? IsEnglish ? $"{x.Category.Parent.NameEn}/{x.Category.NameEn}" : $"{x.Category.Parent.NameEn}/{x.Category.NameEn}"
                       : x.Category != null ? IsEnglish ? x.Category.NameEn : x.Category.NameAr : null : null,
 
                   }).ToList();
