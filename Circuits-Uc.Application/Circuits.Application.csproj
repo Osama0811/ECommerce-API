@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Circuits-Uc.Domain\CircuitsUc.Domain.csproj" />
+    <ProjectReference Include="..\Circuits-Uc.Domain\Circuits.Domain.csproj" />
   </ItemGroup>
 
 </Project>

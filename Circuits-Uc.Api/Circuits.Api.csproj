@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Circuits-Uc.Application\CircuitsUc.Application.csproj" />
-    <ProjectReference Include="..\Circuits-Uc.InfraStructure\CircuitsUc.InfraStructure.csproj" />
+    <ProjectReference Include="..\Circuits-Uc.Application\Circuits.Application.csproj" />
+    <ProjectReference Include="..\Circuits-Uc.InfraStructure\Circuits.InfraStructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

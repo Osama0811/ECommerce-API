@@ -21,8 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Circuits-Uc.Application\CircuitsUc.Application.csproj" />
-    <ProjectReference Include="..\Circuits-Uc.Domain\CircuitsUc.Domain.csproj" />
+    <ProjectReference Include="..\Circuits-Uc.Application\Circuits.Application.csproj" />
+    <ProjectReference Include="..\Circuits-Uc.Domain\Circuits.Domain.csproj" />
   </ItemGroup>
 
 </Project>

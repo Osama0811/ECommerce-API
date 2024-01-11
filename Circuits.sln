@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircuitsUc.Api", "Circuits-Uc.Api\CircuitsUc.Api.csproj", "{B6515ADF-3176-43B3-A51C-B0C2B3F5A9A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Circuits.Api", "Circuits-Uc.Api\Circuits.Api.csproj", "{B6515ADF-3176-43B3-A51C-B0C2B3F5A9A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircuitsUc.Application", "Circuits-Uc.Application\CircuitsUc.Application.csproj", "{5687678D-EB34-4EBB-98CC-435352304575}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Circuits.Application", "Circuits-Uc.Application\Circuits.Application.csproj", "{5687678D-EB34-4EBB-98CC-435352304575}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircuitsUc.Domain", "Circuits-Uc.Domain\CircuitsUc.Domain.csproj", "{37122D2A-265A-447F-BD79-4E8AE046B4F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Circuits.Domain", "Circuits-Uc.Domain\Circuits.Domain.csproj", "{37122D2A-265A-447F-BD79-4E8AE046B4F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircuitsUc.InfraStructure", "Circuits-Uc.InfraStructure\CircuitsUc.InfraStructure.csproj", "{51A86139-2B88-414E-9CDF-5F130ADC7D05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Circuits.InfraStructure", "Circuits-Uc.InfraStructure\Circuits.InfraStructure.csproj", "{51A86139-2B88-414E-9CDF-5F130ADC7D05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
