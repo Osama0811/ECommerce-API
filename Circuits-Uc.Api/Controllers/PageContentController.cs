@@ -19,11 +19,11 @@ namespace CircuitsUc.Api.Controllers
             _pageContentService = PageContentService;
         }
         [HttpGet("GetAll")]
-        public async Task<GeneralResponse<List<PageContentDto>>> GetAll(int? TypeID,int? Count)
+        public async Task<GeneralResponse<List<PageContentDto>>> GetAll(string? PageType, int? Count)
         {
 
             bool isEnglish = Request.Headers["Accept-Language"].ToString().ToLower().Contains("en");
-            return await _pageContentService.GetAll(TypeID, Count, isEnglish);
+            return await _pageContentService.GetAll(PageType, Count, isEnglish);
         }
         [HttpGet("GetById")]
         public async Task<GeneralResponse<PageContentDto>> GetById(Guid Id)

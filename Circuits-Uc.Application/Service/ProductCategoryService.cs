@@ -94,10 +94,11 @@ namespace CircuitsUc.Application.Service
 
       
 
-        public async Task<GeneralResponse<List<ProductCategoryDto>>> GetAll(Guid? ParentID, string? SearchTxt,bool IsEnglish)
+        public async Task<GeneralResponse<List<ProductCategoryDto>>> GetAll(Guid? ParentID, string? SearchTxt, bool IsMain, bool NeedImg ,bool IsEnglish)
         {
             var results = _unit.ProductCategory.All().Include(x=>x.Parent).ThenInclude(d=> d != null ? d.Parent : null)
                 .Where(x=>(ParentID==null||x.ParentID==ParentID)
+                &&(!IsMain||x.ParentID==null)
                 && (SearchTxt == null || x.NameAr.Contains(SearchTxt) || x.NameEn.Contains(SearchTxt))).ToList()
                   .Select(x => new ProductCategoryDto
                   {
@@ -105,7 +106,7 @@ namespace CircuitsUc.Application.Service
                       Name=IsEnglish?x.NameEn:x.NameAr,
                       ParentName = x.Parent != null ? x.Parent.Parent != null ? IsEnglish ? $"{x.Parent.Parent.NameEn}/{x.Parent.NameEn}"  : $"{x.Parent.Parent.NameAr}/{x.Parent.NameAr}"
                       : IsEnglish ? x.Parent.NameEn : x.Parent.NameAr  : null,
-
+                      ImagePath = NeedImg? GetProductCategoryImage(x.Id):null
                   }).ToList();
             return new GeneralResponse<List<ProductCategoryDto>>(results, results.Count().ToString());
         }
@@ -307,22 +308,7 @@ namespace CircuitsUc.Application.Service
             return true;
         }
 
-        public async Task<GeneralResponse<List<ProductCategoryDto>>> GetAllCategoryPortal(Guid? ParentID, bool IsEnglish)
-        {
-            var results = _unit.ProductCategory.All().Include(x => x.Parent).ThenInclude(d => d.Parent)
-               .Where(x => (ParentID == null || x.ParentID == ParentID)).ToList()
-                 .Select(x => new ProductCategoryDto
-                 {
-                     Id = x.Id,
-                     Name = IsEnglish ? x.NameEn : x.NameAr,
-                     Icon = x.Icon,
-                     Description = IsEnglish ? x.DescriptionEn : x.DescriptionAr,
-                     ParentName = x.Parent != null ? x.Parent.Parent != null ? IsEnglish ? x.Parent.Parent.NameEn : x.Parent.Parent.NameAr
-                      : x.Parent != null ? IsEnglish ? x.Parent.NameEn : x.Parent.NameAr : null : null,
-                     ImagePath = GetProductCategoryImage(x.Id)
-                 }).ToList();
-            return new GeneralResponse<List<ProductCategoryDto>>(results, results.Count().ToString());
-        }
+ 
 
         
     }

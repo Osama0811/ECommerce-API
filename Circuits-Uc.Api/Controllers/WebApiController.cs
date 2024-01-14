@@ -35,7 +35,7 @@ namespace CircuitsUc.Api.Controllers
         {
 
             bool isEnglish = Request.Headers["Accept-Language"].ToString().ToLower().Contains("en");
-            return await _ProductCategoryService.GetAllCategoryPortal(ParentID, isEnglish);
+            return await _ProductCategoryService.GetAll(ParentID, null,true,false ,isEnglish);
         }
         #endregion
         #region Product
@@ -59,11 +59,11 @@ namespace CircuitsUc.Api.Controllers
 
         #region PageContent
         [HttpGet("PageContent/GetAll")]
-        public async Task<GeneralResponse<List<PageContentDto>>> GetAllPageContent(int? TypeID,int? Count)
+        public async Task<GeneralResponse<List<PageContentDto>>> GetAllPageContent(string? PageTpe,int? Count)
         {
 
             bool isEnglish = Request.Headers["Accept-Language"].ToString().ToLower().Contains("en");
-            return await _pageContentService.GetAll(TypeID, Count, isEnglish);
+            return await _pageContentService.GetAll(PageTpe, Count, isEnglish);
         }
         [HttpGet("PageContent/PageContentDetails")]
         public async Task<GeneralResponse<PageContentDto>> PageContentDetails(Guid Id)

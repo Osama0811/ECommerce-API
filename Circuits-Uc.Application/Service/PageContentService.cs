@@ -49,6 +49,10 @@ namespace CircuitsUc.Application.Service
                 }
                 #endregion
                 await _unit.PageContent.AddAsync(PageContent);
+
+                if(_unit.Save()<=0)
+                    return new GeneralResponse<Guid>(_localization["ErrorInSave"].Value, System.Net.HttpStatusCode.BadRequest);
+
                 #region UpLoad File & Image
                 if (!string.IsNullOrEmpty(Input.ImageBase64) && !string.IsNullOrEmpty(Input.FileName))
                 {
@@ -74,10 +78,15 @@ namespace CircuitsUc.Application.Service
             }
         }
 
-        public async Task<GeneralResponse<List<PageContentDto>>> GetAll(int? TypeID,int? Count ,bool IsEnglish)
+        public async Task<GeneralResponse<List<PageContentDto>>> GetAll(string? PageType,int? Count ,bool IsEnglish)
         {
+            int TypeID = 0;
+            if (PageType != null)
+            {
+                TypeID = Convert.ToInt32( Enum.Parse(typeof(CommenEnum.PageType), PageType));
+            }
             var results = _unit.PageContent.All();
-           var result= results.Where(x => (TypeID == null || x.TypeID == TypeID)).ToList()
+           var result= results.Where(x => (PageType == null || x.TypeID == TypeID)).ToList()
                   .Select(x => new PageContentDto
                   {
                       Id = x.Id,
@@ -89,7 +98,7 @@ namespace CircuitsUc.Application.Service
                       TypeName=  Enum.GetName(typeof(CommenEnum.PageType),x.TypeID),
                       ImagePath= GetPageContentImage(x.Id)
 
-                  }).TakeLast(Count!=null?(int)Count:results.Count()).ToList();
+                  }).OrderByDescending(d=>d.PostedDate).ThenBy(x=>x.Rank).Take(Count!=null?(int)Count:results.Count()).ToList();
             return new GeneralResponse<List<PageContentDto>>(result, result.Count().ToString());
         }
 

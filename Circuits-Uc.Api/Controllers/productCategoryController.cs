@@ -24,7 +24,7 @@ namespace CircuitsUc.Api.Controllers
         {
 
             bool isEnglish = Request.Headers["Accept-Language"].ToString().ToLower().Contains("en");
-            return await _ProductCategoryService.GetAll(ParentID,SearchTxt,isEnglish);
+            return await _ProductCategoryService.GetAll(ParentID,SearchTxt,false,true,isEnglish);
         }
         [HttpGet("GetById")]
         public async Task<GeneralResponse<ProductCategoryDto>> GetById(Guid Id)

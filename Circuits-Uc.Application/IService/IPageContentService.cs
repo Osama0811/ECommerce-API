@@ -12,7 +12,7 @@ namespace CircuitsUc.Application.IService
 {
     public interface IPageContentService
     {
-        Task<GeneralResponse<List<PageContentDto>>> GetAll(int? TypeID,int? Count ,bool IsEnglish);
+        Task<GeneralResponse<List<PageContentDto>>> GetAll(string? PageType,int? Count ,bool IsEnglish);
         Task<GeneralResponse<PageContentDto>> GetByIdAsync(Guid Id, bool IsEnglish);
         Task<GeneralResponse<Guid>> Add(PageContentInput Input, Guid UserId);
         Task<GeneralResponse<Guid>> Update(PageContentUpdateInput Input, Guid UserId);
