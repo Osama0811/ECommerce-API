@@ -85,7 +85,7 @@ namespace CircuitsUc.Api
                   m => m.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CircuitsUc.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "project.API", Version = "v1" });
 
                 c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -192,7 +192,7 @@ namespace CircuitsUc.Api
 
 
             app.UseStaticFiles();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Circuits_Uc.API v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Project.API v1"));
 
 
             using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())

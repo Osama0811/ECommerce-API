@@ -72,7 +72,7 @@ namespace CircuitsUc.Application.Services
             }
 
             #region Generate JWT
-            JwtSecurityToken jwtSecurityToken = await GenerateToken(User, DateTime.UtcNow.AddYears(3));
+            JwtSecurityToken jwtSecurityToken = await GenerateToken(User, DateTime.UtcNow.AddDays(2));
             AuthResponse response = new AuthResponse
             {
                 UserId = User.Id,
@@ -90,10 +90,58 @@ namespace CircuitsUc.Application.Services
             
         }
 
-       
-       
-       
-       
+
+
+        public async Task<GeneralResponse<RegistrationResponse>> Register(RegistrationRequest request)
+        {
+            try
+            {
+
+                #region ValidEmail
+
+
+                //mapping
+                SecurityUser User = _mapper.Map<RegistrationRequest, SecurityUser>(request);
+                if (!_userService.CheckUser(User, out string message))
+                {
+                    return new GeneralResponse<RegistrationResponse>(_localization[message], System.Net.HttpStatusCode.BadRequest);
+
+                }
+                #endregion
+                //Mapping
+                User.RoleId = Convert.ToInt32(RoleType.Customer);
+                User.Password = WebUiUtility.Encrypt(request.Password);
+           
+                await _unit.SecurityUser.AddAsync(User);
+             
+              
+                var results = _unit.Save();
+                #region Token
+
+                JwtSecurityToken jwtSecurityToken = await GenerateToken(User, DateTime.UtcNow.AddDays(2));
+
+                RegistrationResponse response = new RegistrationResponse
+                {
+                    UserId = User.Id,
+                    Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
+                   
+                    Email = User.Email,
+                    UserName = User.UserName,
+                };
+
+                #endregion
+                
+                return results >= 1 ?
+            new GeneralResponse<RegistrationResponse>(response, _localization["RegistrationSuccessfully"], 0)
+            : new GeneralResponse<RegistrationResponse>(_localization["ErrorInRegistration"], System.Net.HttpStatusCode.BadRequest);
+            }
+            catch (Exception ex)
+            {
+                return new GeneralResponse<RegistrationResponse>(ex.Message + "-" + ex.InnerException?.Message, System.Net.HttpStatusCode.BadRequest);
+
+            }
+        }
+
         public async Task<GeneralResponse<ChangeUserPasswordResponse>> ChangePassword(ChangeUserPasswordRequest request)
         {
 

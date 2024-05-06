@@ -11,6 +11,7 @@ namespace CircuitsUc.Application.IService
     public interface IAuthService
     {
         Task<GeneralResponse<AuthResponse>> Login(AuthRequest request);
+        Task<GeneralResponse<RegistrationResponse>> Register(RegistrationRequest request);
         Task<GeneralResponse<ChangeUserPasswordResponse>> ChangePassword(ChangeUserPasswordRequest request);
         Task<bool> Logout(Guid UserID);
 

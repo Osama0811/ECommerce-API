@@ -19,6 +19,7 @@ namespace CircuitsUc.Application.Mapping
                 // .ForMember(dest => dest.AlternativePhone, opt => opt.MapFrom(src => src.AlternativePhone))
 
             CreateMap<SecurityUserInput, SecurityUser>();
+            CreateMap<RegistrationRequest, SecurityUser>().ReverseMap();
             CreateMap<SecurityUserUpdateInput, SecurityUser>();
 
         }

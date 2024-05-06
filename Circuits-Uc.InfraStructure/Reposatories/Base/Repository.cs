@@ -18,7 +18,7 @@ namespace CircuitsUc.InfraStructure.Reposatories.Base
         {
             _context = DBDemoContext;
         }
-
+        
 
         public IQueryable<T> All()
         {

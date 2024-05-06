@@ -24,5 +24,7 @@ namespace CircuitsUc.Application.IServices
 
 
         SecurityUser GetActiveUserById(Guid UserID);
+
+        bool CheckUser(SecurityUser SecurityUser, out string message);
     }
 }

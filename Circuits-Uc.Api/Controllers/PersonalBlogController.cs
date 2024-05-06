@@ -14,11 +14,11 @@ namespace CircuitsUc.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SecurityUserController : BaseApiController
+    public class PersonalBlogController : BaseApiController
     {
    
         private readonly ISecurityUserService _SecurityUser;
-        public SecurityUserController(ISecurityUserService SecurityUser)
+        public PersonalBlogController(ISecurityUserService SecurityUser)
         {
            
             _SecurityUser = SecurityUser;
@@ -44,13 +44,13 @@ namespace CircuitsUc.API.Controllers
             return await _SecurityUser.Add(SecUser, userId);
         }
       
-        [HttpPost("Update")]
+        [HttpPut("Update")]
         public async Task<GeneralResponse<Guid>> Update(SecurityUserUpdateInput SecUser)
         {
             Guid userId = Guid.Parse(HttpContext.GetUserId());
             return await _SecurityUser.Update(SecUser,userId);
         }
-        [HttpPost("Delete")]
+        [HttpDelete("Delete")]
         public async Task<GeneralResponse<Guid>> Delete(Guid Id)
         {
             return await _SecurityUser.SoftDelete(Id);

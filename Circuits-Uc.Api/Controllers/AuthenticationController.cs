@@ -6,6 +6,7 @@ using CircuitsUc.Application.Helpers;
 using CircuitsUc.Application.IService;
 using CircuitsUc.Application.IServices;
 using CircuitsUc.Application.Models.AuthDTO;
+using CircuitsUc.Application.Services;
 using CircuitsUc.Domain.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Routing;
@@ -29,16 +30,21 @@ namespace CircuitsUc.API.Controllers
             _localization = localization;
         }
 
-        [HttpPost("login")]
+        [HttpPost("SignIn")]
         public async Task<GeneralResponse<AuthResponse>> Login(AuthRequest request)
         {
 
             
-            var password = WebUiUtility.Decrypt("bRfSm3N1FM9ZSj3VebIS8A,,");
+            //var password = WebUiUtility.Decrypt("bRfSm3N1FM9ZSj3VebIS8A,,");
             return await _authenticationService.Login(request);
         }
 
-       
+        [HttpPost("SignUp")]
+        public async Task<GeneralResponse<RegistrationResponse>> Register(RegistrationRequest request)
+        {
+
+            return await _authenticationService.Register(request);
+        }
 
         [HttpPost("ChangePassword")]
         public async Task<GeneralResponse<ChangeUserPasswordResponse>> ChangePassword(ChangeUserPasswordRequest request)
